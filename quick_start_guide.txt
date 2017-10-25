@@ -1,0 +1,43 @@
+// Copyright [2017] [Secure Computation Lab at UConn]. All rights reserved.
+// Use of this source code is governed by a MIT-style
+// license that can be found in the LICENSE file.
+//
+// Author: Chenglu Jin at <chenglu.jin@uconn.edu>
+
+In this directory, there are four folders.
+
+-- RO 
+------ This folder contains the design of 450 ring oscillator pairs.
+
+-- TRNG 
+------ This folder contains the design of a multiple RO TRNG. 
+
+-- system
+------ This folder has the hardware LPN-core
+
+-- LPN_PUF_complete_test
+------ Open Vivado, enter tcl directory, enter command "source
+dma_ex_interrupt.tcl" in the console. The project will be created and built. 
+
+-- SW
+------ It contains all the software code.  
+
+How to use this? 
+1. Package ro_pair.v as one IP core for ZedBoard. 
+2. Package all the Verilog files in TRNG folder as one IP core for ZedBoard. 
+3. Package all the Verilog files in system folder as one IP core for ZedBoard. 
+4. Change the directory of these three IP cores in \LPN_PUF_complete_test\tcl\bd_zedboard.tcl  (Search the keyword "Notice")
+5. Update your pin selection in \LPN_PUF_complete_test\tcl\my_xdc.xdc. Notice
+that currently switch 0 on ZedBoard is used for selecting the mode Gen (0) or
+Ver (1). Switch 1 is used to start the hardware to run.
+6. Open Vivado, enter the tcl folder. Run "source dma_ex_interrupt.tcl"
+7. After this, you will have a post implementation design. Open SDK, import
+the hardware design. 
+8. Create a new SW project in SDK, and import all the code in SW to your
+project. 
+9. Set the heap/stack size to 64MB. 
+10. Compile the code and program the FPGA. 
+11. See the output from a UART terminal with Baud rate 115200. Do not forget
+to push switch 0 to select mode, and push switch 1 to start one Gen/Ver
+operation.
+
